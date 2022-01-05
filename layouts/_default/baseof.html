@@ -101,7 +101,9 @@
   {{ else if eq .Site.Params.colorScheme "auto" }}
     {{ $csClass = "colorscheme-auto" }}
   {{ end }}
-  <body class="preload-transitions {{ $csClass }}{{ if .Site.Params.rtl }} rtl{{ end }}">
+  <body class='preload-transitions {{ $csClass }}{{ if .Site.Params.rtl }} rtl{{ end }} {{ if and .Site.Params.vantaBackground (eq .Site.Params.colorScheme "dark")}} vanta{{ end }}'
+        onload="{{ if .Site.Params.enableTwemoji }} twemoji.parse(document.body); {{ end }}"
+  >
     {{ partial "float" . }}
     <main class="wrapper">
       {{ partial "header.html" . }}
@@ -156,6 +158,11 @@
     {{ if and .Site.Params.googleTagManager .Site.Params.googleTagManager.id }}
       {{- partial "analytics/googletagmanager" . -}}
     {{ end }}
+
+    {{ if .Site.Params.vantaBackground }}
+      {{- partial "vantabackground/vantabackground" . -}}
+    {{ end }}
+
   </body>
 
 </html>

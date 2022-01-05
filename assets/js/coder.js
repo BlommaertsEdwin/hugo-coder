@@ -34,8 +34,26 @@ function setTheme(theme) {
     body.classList.remove('colorscheme-' + inverse);
     body.classList.add('colorscheme-' + theme);
     document.documentElement.style['color-scheme'] = theme;
+    if (theme === 'dark') {
+        body.classList.add('vanta')
+    }
+    else {
+        body.classList.remove('vanta')
+
+    }
+    if (window.localStorage) {
+        if (!localStorage.getItem('firstLoad')) {
+            localStorage['firstLoad'] = true;
+            window.location.reload();
+        }
+        else
+            localStorage.removeItem('firstLoad');
+    }
+
 }
+
 
 function rememberTheme(theme) {
     localStorage.setItem('colorscheme', theme);
 }
+
